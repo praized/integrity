@@ -29,7 +29,10 @@ class Test::Unit::TestCase
     }
   end
 
-  before(:each) do DataMapper.auto_migrate! end
+  before(:each) do
+    FileUtils.rm_f("test.db")
+    DataMapper.auto_migrate!
+  end
 
   def capture_stdout
     output = StringIO.new

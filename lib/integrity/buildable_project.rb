@@ -2,8 +2,8 @@ module Integrity
   class BuildableProject
     def self.call(buildable)
       return [] unless projects = Project.all(
-        :uri.like => "#{buildable["uri"]}%",
-        :branch   => buildable["branch"]
+        :uri    => buildable["uri"],
+        :branch => buildable["branch"]
       )
 
       projects.inject([]) { |acc, p|
