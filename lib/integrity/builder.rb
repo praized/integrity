@@ -65,7 +65,7 @@ module Integrity
     private
     
     def integrity_dir
-      @integrity_dir ||= File.dirname(File.expand_path(File.join(File.dirname(__FILE__), "../../")))
+      @integrity_dir ||= File.dirname(File.expand_path(File.join(File.dirname(__FILE__), "../")))
     end
     
     def clean_path
