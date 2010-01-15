@@ -69,11 +69,11 @@ module Integrity
     end
     
     def clean_path
-      ENV['PATH'].to_s.strip.split(':').reject{|path| path.include?(integrity_dir) }.join(':')
+      ENV['PATH'].to_s.strip.split(':').reject{|path| path.include?(integrity_dir)}.join(':')
     end
     
     def clean_rubyopt
-      ENV['RUBYOPT'].to_s.strip.split(' ').reject{opt| opt.include?(integrity_dir) }.join(' ')
+      ENV['RUBYOPT'].to_s.strip.split(' ').reject{|opt| opt.include?(integrity_dir)}.join(' ')
     end
 
   end
