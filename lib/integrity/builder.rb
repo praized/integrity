@@ -47,7 +47,7 @@ module Integrity
     end
 
     def run
-      cmd = "(cd #{repo.directory} && #{@build.project.command} 2>&1)"
+      cmd = "(cd #{repo.directory} && RUBYOPT=#{clean_rubyopt} PATH=#{clean_path} && #{@build.project.command} 2>&1)"
       IO.popen(cmd, "r") { |io| @output = io.read }
       @status = $?.success?
     end
@@ -61,5 +61,20 @@ module Integrity
     def commit
       @build.commit.identifier
     end
+
+    private
+    
+    def integrity_dir
+      @integrity_dir ||= File.dirname(File.expand_path(File.join(File.dirname(__FILE__), "../../")))
+    end
+    
+    def clean_path
+      ENV['PATH'].to_s.strip.split(':').reject{|path| path.include?(integrity_dir) }.join(':')
+    end
+    
+    def clean_rubyopt
+      ENV['RUBYOPT'].to_s.strip.split(' ').reject{opt| opt.include?(integrity_dir) }.join(' ')
+    end
+
   end
 end
